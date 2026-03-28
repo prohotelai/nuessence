@@ -1,83 +1,40 @@
-/* Nuessence Clinic — Minimal JS
-   Only: scroll animation for count-up numbers
-   No heavy frameworks or dependencies */
+(() => {
+  "use strict";
 
-(function () {
-  'use strict';
-
-  /* ── Intersection Observer: fade-in sections ── */
-  if ('IntersectionObserver' in window) {
-    const items = document.querySelectorAll(
-      '.benefit-item, .testimonial-card, .why-item, .step, .ba-card'
-    );
-
+  const animatedSections = document.querySelectorAll(".section-animate");
+  if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add("is-visible");
             io.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.15 }
     );
+    animatedSections.forEach((el) => io.observe(el));
+  } else {
+    animatedSections.forEach((el) => el.classList.add("is-visible"));
+  }
 
-    items.forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
-      io.observe(el);
+  const form = document.getElementById("callback-form");
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = encodeURIComponent(
+        form.querySelector("#name")?.value?.trim() || ""
+      );
+      const mobile = encodeURIComponent(
+        form.querySelector("#mobile")?.value?.trim() || ""
+      );
+      const message = encodeURIComponent(
+        form.querySelector("#message")?.value?.trim() || ""
+      );
+
+      const text = `Hello I want to book a laser session.%0AName: ${name}%0AMobile: ${mobile}%0AMessage: ${message}`;
+      window.open(`https://wa.me/201044458833?text=${text}`, "_blank", "noopener");
     });
-  }
-
-  /* ── Count-up animation for statistics ── */
-  function animateCount(el, target, duration) {
-    const start = performance.now();
-    const isDecimal = target % 1 !== 0;
-
-    function step(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * target;
-
-      el.textContent = isDecimal
-        ? '★ ' + current.toFixed(1)
-        : Math.round(current) + (el.dataset.suffix || '');
-
-      if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  if ('IntersectionObserver' in window) {
-    const nums = document.querySelectorAll('.count-item__num');
-
-    const countIO = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const raw = el.textContent.trim();
-
-            if (raw.startsWith('★')) {
-              animateCount(el, 4.9, 1400);
-            } else if (raw.includes('+')) {
-              const num = parseInt(raw, 10);
-              el.dataset.suffix = '+';
-              animateCount(el, num, 1600);
-            }
-
-            countIO.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    nums.forEach((el) => countIO.observe(el));
   }
 })();
