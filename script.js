@@ -33,7 +33,7 @@
         form.querySelector("#message")?.value?.trim() || ""
       );
 
-      const text = `Hello I want to book a laser session.%0AName: ${name}%0AMobile: ${mobile}%0AMessage: ${message}`;
+      const text = `Hello, I want to book a laser session.%0AName: ${name}%0AMobile: ${mobile}%0AMessage: ${message}`;
       window.open(`https://wa.me/201044458833?text=${text}`, "_blank", "noopener");
     });
   }

@@ -2,6 +2,15 @@
   --gold-1: #d4af37;
   --gold-2: #c9a227;
   --gold-3: #9c7716;
+  --hero-highlight-1: rgba(255, 255, 255, 0.52);
+  --hero-highlight-2: rgba(255, 223, 132, 0.45);
+  --hero-base-1: #f1d47d;
+  --hero-base-2: #d2a53a;
+  --hero-base-3: #b07f1b;
+  --hero-base-4: #8d640f;
+  --hero-overlay-1: rgba(255, 255, 255, 0.38);
+  --hero-overlay-2: rgba(255, 255, 255, 0.2);
+  --hero-specks: rgba(255, 235, 179, 0.13);
   --white: #fff;
   --ivory: #faf6ef;
   --text-dark: #2f2210;
@@ -65,18 +74,18 @@ p {
   min-height: 760px;
   padding: 18px 0 44px;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0) 34%),
-    radial-gradient(circle at 75% 42%, rgba(255, 223, 132, 0.45) 0%, rgba(255, 223, 132, 0) 52%),
-    linear-gradient(140deg, #f1d47d 0%, #d2a53a 33%, #b07f1b 62%, #8d640f 100%);
+    radial-gradient(circle at 18% 18%, var(--hero-highlight-1) 0%, rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 75% 42%, var(--hero-highlight-2) 0%, rgba(255, 223, 132, 0) 52%),
+    linear-gradient(140deg, var(--hero-base-1) 0%, var(--hero-base-2) 33%, var(--hero-base-3) 62%, var(--hero-base-4) 100%);
 }
 
 .hero__layers {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 35% 58%, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 44%),
-    radial-gradient(circle at 70% 68%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0) 48%),
-    repeating-radial-gradient(circle at center, rgba(255, 235, 179, 0.13) 0 1px, rgba(255, 235, 179, 0) 2px 7px);
+    radial-gradient(circle at 35% 58%, var(--hero-overlay-1) 0%, rgba(255, 255, 255, 0) 44%),
+    radial-gradient(circle at 70% 68%, var(--hero-overlay-2) 0%, rgba(255, 255, 255, 0) 48%),
+    repeating-radial-gradient(circle at center, var(--hero-specks) 0 1px, rgba(255, 235, 179, 0) 2px 7px);
   mix-blend-mode: screen;
   pointer-events: none;
 }
